@@ -1,0 +1,20 @@
+name: StarfunRush
+main: com.fancraft.rush.RushPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+website: https://example.com
+commands:
+  rush:
+    description: Gestion du mode Rush
+    usage: /rush
+    permission: fancraft.rush.use
+permissions:
+  fancraft.rush.use:
+    description: Accès basique aux commandes Rush
+    default: true
+  fancraft.rush.admin:
+    description: Gestion des parties Rush
+    default: op
+softdepend:
+  - BKCommonLib
