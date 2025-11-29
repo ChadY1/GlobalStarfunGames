@@ -40,6 +40,10 @@ public abstract class BaseGameManager<A extends BaseArena> {
         }
     }
 
+    public void clearArenas() {
+        arenas.clear();
+    }
+
     public Optional<A> getArena(String id) {
         return arenas.stream().filter(a -> a.getId().equalsIgnoreCase(id)).findFirst();
     }

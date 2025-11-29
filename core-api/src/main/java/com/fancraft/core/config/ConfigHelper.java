@@ -3,6 +3,7 @@ package com.fancraft.core.config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -39,5 +40,14 @@ public final class ConfigHelper {
             throw new IllegalStateException("Section manquante dans config: " + path);
         }
         return section;
+    }
+
+    public static void writeLocation(FileConfiguration config, String path, Location location) {
+        config.set(path + ".world", location.getWorld().getName());
+        config.set(path + ".x", location.getX());
+        config.set(path + ".y", location.getY());
+        config.set(path + ".z", location.getZ());
+        config.set(path + ".yaw", location.getYaw());
+        config.set(path + ".pitch", location.getPitch());
     }
 }

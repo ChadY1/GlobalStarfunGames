@@ -12,8 +12,10 @@ import org.bukkit.entity.Player;
 public class HikaCommand implements CommandExecutor {
 
     private final HikaGameManager manager;
+    private final HikaBrainPlugin plugin;
 
-    public HikaCommand(HikaGameManager manager) {
+    public HikaCommand(HikaBrainPlugin plugin, HikaGameManager manager) {
+        this.plugin = plugin;
         this.manager = manager;
     }
 
@@ -24,8 +26,8 @@ public class HikaCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (args.length == 0) {
-            sender.sendMessage(ChatColor.YELLOW + "/hikabrain start|stop|join");
+        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+            plugin.sendHelp(sender);
             return true;
         }
         if (args[0].equalsIgnoreCase("start")) {
@@ -49,6 +51,13 @@ public class HikaCommand implements CommandExecutor {
         if (args[0].equalsIgnoreCase("join")) {
             manager.getArenas().stream().findFirst().ifPresent(arena -> manager.joinPlayer(arena, player));
             sender.sendMessage(ChatColor.AQUA + "Rejoint HikaBrain.");
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("set")) {
+            return plugin.handleAdminCommand(sender, args);
+        }
+        if (args[0].equalsIgnoreCase("reload")) {
+            plugin.reloadConfig(sender);
             return true;
         }
         return false;

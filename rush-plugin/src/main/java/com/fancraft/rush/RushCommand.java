@@ -13,8 +13,10 @@ import org.bukkit.entity.Player;
 public class RushCommand implements CommandExecutor {
 
     private final RushGameManager gameManager;
+    private final RushPlugin plugin;
 
-    public RushCommand(RushGameManager gameManager) {
+    public RushCommand(RushPlugin plugin, RushGameManager gameManager) {
+        this.plugin = plugin;
         this.gameManager = gameManager;
     }
 
@@ -25,8 +27,8 @@ public class RushCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (args.length == 0) {
-            sender.sendMessage(ChatColor.YELLOW + "/rush start|stop|join");
+        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+            plugin.sendHelp(sender);
             return true;
         }
         if (args[0].equalsIgnoreCase("start")) {
@@ -54,6 +56,13 @@ public class RushCommand implements CommandExecutor {
         }
         if (args[0].equalsIgnoreCase("state")) {
             gameManager.getArenas().stream().findFirst().ifPresent(arena -> sender.sendMessage("Etat: " + arena.getState()));
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("set")) {
+            return plugin.handleAdminCommand(sender, args);
+        }
+        if (args[0].equalsIgnoreCase("reload")) {
+            plugin.reloadConfig(sender);
             return true;
         }
         return false;

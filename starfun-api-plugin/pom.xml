@@ -7,9 +7,9 @@
         <artifactId>fancraft-minigames</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>freecube-plugin</artifactId>
+    <artifactId>starfun-api-plugin</artifactId>
     <packaging>jar</packaging>
-    <name>FanCraft FreeCube Plugin</name>
+    <name>Starfun API Plugin</name>
 
     <dependencies>
         <dependency>
