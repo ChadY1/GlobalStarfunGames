@@ -1,0 +1,12 @@
+name: FanCraftRush
+main: com.fancraft.rush.RushPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+website: https://example.com
+commands:
+  rush:
+    description: Gestion du mode Rush
+    usage: /rush
+softdepend:
+  - BKCommonLib

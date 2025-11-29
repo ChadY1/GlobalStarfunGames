@@ -1,0 +1,11 @@
+name: FanCraftSkyWars
+main: com.fancraft.skywars.SkyWarsPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+commands:
+  skywars:
+    description: Gestion du mode SkyWars
+    usage: /skywars
+softdepend:
+  - BKCommonLib
