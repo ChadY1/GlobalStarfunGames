@@ -1,0 +1,29 @@
+arenas:
+  duel:
+    lobby:
+      world: world
+      x: 0
+      y: 85
+      z: 0
+      yaw: 0
+      pitch: 0
+    teams:
+      red:
+        spawn:
+          world: world
+          x: -5
+          y: 85
+          z: 0
+          yaw: 0
+          pitch: 0
+      blue:
+        spawn:
+          world: world
+          x: 5
+          y: 85
+          z: 0
+          yaw: 180
+          pitch: 0
+bungeecord:
+  enabled: false
+  server: "starfun-hikabrain"
