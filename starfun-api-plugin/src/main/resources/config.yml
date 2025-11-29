@@ -1,0 +1,8 @@
+# Configuration Starfun API centrale
+messages:
+  prefix: "&6[Starfun]&r"
+npctesting:
+  default-arena: "default"
+  default-weapon: "sword" # sword ou bow
+help:
+  header: "&eAide Starfun API"
