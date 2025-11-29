@@ -29,7 +29,9 @@ jobs:
         with:
           name: fancraft-plugins
           path: |
+            core-api/target/*.jar
             rush-plugin/target/*.jar
             hikabrain-plugin/target/*.jar
             skywars-plugin/target/*.jar
             freecube-plugin/target/*.jar
+            starfun-api-plugin/target/*.jar

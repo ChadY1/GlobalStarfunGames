@@ -1,0 +1,8 @@
+name: StarfunCoreAPI
+main: com.fancraft.core.CoreApiPlugin
+version: 1.0.0
+api-version: 1.9.4
+authors: [Starfun]
+depend: [BKCommonLib]
+commands: {}
+permissions: {}
