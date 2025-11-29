@@ -3,7 +3,7 @@
 Ce dépôt fournit un projet Maven multi-module prêt à compiler quatre plugins Spigot (Rush, HikaBrain, SkyWars, FreeCube) appuyés sur un module `core-api` partagé. Le code cible l'API Spigot 1.9.4, évite tout accès NMS et s'appuie sur **BKCommonLib** pour absorber les différences entre versions. Les JAR finaux sont pré-intégrés (shade) avec `core-api` pour éviter les erreurs de classe manquante.
 
 ## Arborescence des modules
-- `core-api` : utilitaires communs (gestion d'équipes, scoreboards, base d'arène/manager, adaptateurs de version via pattern Strategy, PNJ de test via `NpcManager`).
+- `core-api` : utilitaires communs (gestion d'équipes, scoreboards, base d'arène/manager, adaptateurs de version via pattern Strategy, PNJ de test via `NpcManager`). Il inclut désormais un `plugin.yml` minimal (`StarfunCoreAPI`) pour ceux qui souhaitent le déployer séparément, bien que chaque mini‑jeu reste autonome grâce au shading.
 - `starfun-api-plugin` : plugin d'orchestration qui expose `/starfun` pour l'aide globale, le rechargement centralisé et le spawn de PNJ pilotes pour tester les arènes.
 - `rush-plugin` : lit à protéger/détruire, deux équipes, détections de lits et éliminations. Plugin: **StarfunRush**.
 - `hikabrain-plugin` : duel MLGRush, points lorsqu'un joueur atteint la plateforme adverse, remise à zéro après chaque point. Plugin: **StarfunHikaBrain**.
@@ -16,10 +16,10 @@ Chaque plugin expose une commande dédiée (`/rush`, `/hikabrain`, `/skywars`, `
 ```bash
 mvn clean package
 ```
-Les JAR sont générés dans `*/target/` pour chaque module. Java 8 est requis. Chaque JAR inclut automatiquement `core-api`; aucun JAR supplémentaire n'est nécessaire sur le serveur.
+Les JAR sont générés dans `*/target/` pour chaque module et le workflow CI GitHub publie tous les artefacts (y compris `core-api` et `starfun-api-plugin`) pour téléchargement rapide. Java 8 est requis. Chaque plugin final inclut automatiquement `core-api`; aucun JAR supplémentaire n'est nécessaire sur le serveur.
 
 ## Configuration complète
-- **core-api** : ne requiert pas de configuration; il sert de socle partagé.
+- **core-api** : ne requiert pas de configuration; il sert de socle partagé et peut être chargé comme plugin `StarfunCoreAPI` si vous voulez des logs dédiés, mais n'est pas nécessaire sur le serveur car déjà inclus dans chaque JAR de mini‑jeu.
 - **rush-plugin** : éditez `rush-plugin/src/main/resources/config.yml` pour définir les coordonnées du lobby, les spawns et lits des équipes Rouge/Bleu. Copiez le fichier dans `plugins/StarfunRush/config.yml` et adaptez les mondes.
 - **hikabrain-plugin** : configurez l'unique arène (lobby, spawn rouge/bleu) dans `hikabrain-plugin/src/main/resources/config.yml` puis déployez-le avec le JAR.
 - **skywars-plugin** : renseignez les points de spawn, coffres îles et coffres centre dans `skywars-plugin/src/main/resources/config.yml`.
