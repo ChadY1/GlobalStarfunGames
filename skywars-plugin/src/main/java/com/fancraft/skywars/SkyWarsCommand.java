@@ -29,11 +29,19 @@ public class SkyWarsCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("start")) {
+            if (!sender.hasPermission("fancraft.skywars.admin")) {
+                sender.sendMessage(ChatColor.RED + "Permission requise pour démarrer.");
+                return true;
+            }
             manager.getArenas().stream().findFirst().ifPresent(manager::start);
             sender.sendMessage(ChatColor.GREEN + "SkyWars lancé.");
             return true;
         }
         if (args[0].equalsIgnoreCase("stop")) {
+            if (!sender.hasPermission("fancraft.skywars.admin")) {
+                sender.sendMessage(ChatColor.RED + "Permission requise pour arrêter.");
+                return true;
+            }
             manager.getArenas().stream().findFirst().ifPresent(arena -> manager.end(arena, "Arrêt"));
             sender.sendMessage(ChatColor.RED + "SkyWars stoppé.");
             return true;

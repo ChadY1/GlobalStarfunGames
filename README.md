@@ -17,6 +17,20 @@ mvn clean package
 ```
 Les JAR sont générés dans `*/target/` pour chaque module. Java 8 est requis.
 
+## Configuration complète
+- **core-api** : ne requiert pas de configuration; il sert de socle partagé.
+- **rush-plugin** : éditez `rush-plugin/src/main/resources/config.yml` pour définir les coordonnées du lobby, les spawns et lits des équipes Rouge/Bleu. Copiez le fichier dans `plugins/FanCraftRush/config.yml` et adaptez les mondes.
+- **hikabrain-plugin** : configurez l'unique arène (lobby, spawn rouge/bleu) dans `hikabrain-plugin/src/main/resources/config.yml` puis déployez-le avec le JAR.
+- **skywars-plugin** : renseignez les points de spawn, coffres îles et coffres centre dans `skywars-plugin/src/main/resources/config.yml`.
+- **freecube-plugin** : ajustez le monde créatif, la position du hub et l'option `protect` dans `freecube-plugin/src/main/resources/config.yml`.
+
+## Guide d'installation par mode
+1. **Dépendances communes** : placez les quatre JAR dans `plugins/` avec **BKCommonLib** et les plugins réseau **ViaVersion**, **ViaBackwards**, **ViaRewind**.
+2. **Rush** : copiez `config.yml`, vérifiez les coordonnées des lits/spawns, puis utilisez `/rush start|stop|join` (permission admin `fancraft.rush.admin`).
+3. **HikaBrain** : copiez `config.yml`, validez le lobby et les spawns, commande `/hikabrain start|stop|join` (admin `fancraft.hikabrain.admin`).
+4. **SkyWars** : copiez `config.yml`, vérifiez les points d'apparition et coffres; démarrez via `/skywars start|stop|join` (admin `fancraft.skywars.admin`).
+5. **FreeCube** : copiez `config.yml`, ajustez le monde créatif/hub; `/freecube go` envoie dans le monde créatif, `/freecube hub` (admin `fancraft.freecube.admin`) renvoie au hub.
+
 ## Installation sur serveur
 1. Copiez chaque JAR plugin dans le dossier `plugins/` d'un serveur Spigot 1.9.4.
 2. Installez **BKCommonLib** (dépendance requise) dans le même dossier.

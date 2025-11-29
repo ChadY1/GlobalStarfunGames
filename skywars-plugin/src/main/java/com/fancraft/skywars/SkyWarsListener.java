@@ -29,13 +29,12 @@ public class SkyWarsListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (manager.getArenas().isEmpty()) {
-            SkyWarsArena arena = new SkyWarsArena("default");
-            arena.setChestManager(new SkyWarsChestManager());
-            manager.registerArena(arena);
-        }
         SkyWarsArena arena = manager.getArenas().get(0);
         manager.joinPlayer(arena, event.getPlayer());
+        if (!arena.getSpawnPoints().isEmpty()) {
+            int slot = arena.getPlayers().size() - 1;
+            event.getPlayer().teleport(arena.getSpawnPoints().get(slot % arena.getSpawnPoints().size()));
+        }
         event.getPlayer().sendMessage(ChatColor.GREEN + "Rejoint SkyWars.");
     }
 
@@ -48,7 +47,7 @@ public class SkyWarsListener implements Listener {
             Player player = event.getPlayer();
             manager.findArenaByPlayer(player).ifPresent(arena -> {
                 Chest chest = (Chest) event.getClickedBlock().getState();
-                boolean isCenter = arena.getChestManager() != null && arena.getChestManager().equals(arena.getChestManager());
+                boolean isCenter = arena.isCenterChest(chest.getLocation());
                 arena.getChestManager().fill(chest.getInventory(), isCenter);
             });
         }

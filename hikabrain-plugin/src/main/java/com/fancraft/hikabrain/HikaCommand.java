@@ -29,11 +29,19 @@ public class HikaCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("start")) {
+            if (!sender.hasPermission("fancraft.hikabrain.admin")) {
+                sender.sendMessage(ChatColor.RED + "Permission manquante pour démarrer un duel.");
+                return true;
+            }
             manager.getArenas().stream().findFirst().ifPresent(manager::start);
             sender.sendMessage(ChatColor.GREEN + "Duel lancé.");
             return true;
         }
         if (args[0].equalsIgnoreCase("stop")) {
+            if (!sender.hasPermission("fancraft.hikabrain.admin")) {
+                sender.sendMessage(ChatColor.RED + "Permission manquante pour arrêter un duel.");
+                return true;
+            }
             manager.getArenas().stream().findFirst().ifPresent(arena -> manager.end(arena, "Arrêt"));
             sender.sendMessage(ChatColor.RED + "Duel stoppé.");
             return true;

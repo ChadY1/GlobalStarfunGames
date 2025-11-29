@@ -13,6 +13,8 @@ import java.util.List;
 public class SkyWarsArena extends BaseArena {
 
     private final List<Location> spawnPoints = new ArrayList<>();
+    private final List<Location> centerChests = new ArrayList<>();
+    private final List<Location> islandChests = new ArrayList<>();
     private SkyWarsChestManager chestManager;
 
     public SkyWarsArena(String id) {
@@ -21,6 +23,14 @@ public class SkyWarsArena extends BaseArena {
 
     public List<Location> getSpawnPoints() {
         return spawnPoints;
+    }
+
+    public List<Location> getCenterChests() {
+        return centerChests;
+    }
+
+    public List<Location> getIslandChests() {
+        return islandChests;
     }
 
     public SkyWarsChestManager getChestManager() {
@@ -36,5 +46,9 @@ public class SkyWarsArena extends BaseArena {
         setState(GameState.RESETTING);
         getPlayers().clear();
         setState(GameState.WAITING);
+    }
+
+    public boolean isCenterChest(Location location) {
+        return centerChests.stream().anyMatch(loc -> loc.getBlock().equals(location.getBlock()));
     }
 }

@@ -1,6 +1,7 @@
 package com.fancraft.core.game;
 
 import com.fancraft.core.scoreboard.ScoreboardService;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -16,6 +17,7 @@ public abstract class BaseArena {
     private final Set<UUID> players = new HashSet<>();
     private GameState state = GameState.WAITING;
     private ScoreboardService scoreboardService;
+    private Location lobbySpawn;
 
     protected BaseArena(String id) {
         this.id = id;
@@ -39,6 +41,14 @@ public abstract class BaseArena {
 
     public ScoreboardService getScoreboardService() {
         return scoreboardService;
+    }
+
+    public Location getLobbySpawn() {
+        return lobbySpawn;
+    }
+
+    public void setLobbySpawn(Location lobbySpawn) {
+        this.lobbySpawn = lobbySpawn;
     }
 
     public Set<UUID> getPlayers() {

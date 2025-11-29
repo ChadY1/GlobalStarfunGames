@@ -7,7 +7,14 @@ commands:
   freecube:
     description: Gestion du mode FreeCube
     usage: /freecube
+    permission: fancraft.freecube.use
 permissions:
+  fancraft.freecube.use:
+    description: Accès général à FreeCube
+    default: true
+  fancraft.freecube.admin:
+    description: Gestion FreeCube et retour hub
+    default: op
   freecube.build:
     description: Permet de construire dans le monde FreeCube lorsque la protection est activée
     default: op

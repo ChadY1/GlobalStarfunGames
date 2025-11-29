@@ -23,6 +23,10 @@ public class FreeCubeCommand implements CommandExecutor {
             sender.sendMessage("Commande réservée aux joueurs.");
             return true;
         }
+        if (!sender.hasPermission("fancraft.freecube.use")) {
+            sender.sendMessage(ChatColor.RED + "Permission manquante pour accéder à FreeCube.");
+            return true;
+        }
         Player player = (Player) sender;
         if (args.length == 0 || args[0].equalsIgnoreCase("go")) {
             worldManager.sendToCreative(player);
@@ -30,7 +34,11 @@ public class FreeCubeCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("hub")) {
-            player.teleport(player.getWorld().getSpawnLocation());
+            if (!sender.hasPermission("fancraft.freecube.admin")) {
+                sender.sendMessage(ChatColor.RED + "Permission manquante.");
+                return true;
+            }
+            worldManager.sendToHub(player);
             player.sendMessage(ChatColor.YELLOW + "Retour au hub.");
             return true;
         }

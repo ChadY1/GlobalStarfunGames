@@ -26,7 +26,7 @@ public class RushArena extends BaseArena {
     public void reset() {
         setState(GameState.RESETTING);
         teams.forEach(team -> {
-            team.destroyBed();
+            team.resetBed();
             team.setBedLocation(null);
             team.getMembers().forEach(player -> player.teleport(player.getWorld().getSpawnLocation()));
         });

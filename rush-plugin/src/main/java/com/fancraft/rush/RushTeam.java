@@ -31,4 +31,8 @@ public class RushTeam extends Team {
     public void destroyBed() {
         this.bedIntact = false;
     }
+
+    public void resetBed() {
+        this.bedIntact = true;
+    }
 }
