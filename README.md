@@ -16,7 +16,7 @@ Chaque plugin expose une commande dédiée (`/rush`, `/hikabrain`, `/skywars`, `
 ```bash
 mvn clean package
 ```
-Les JAR sont générés dans `*/target/` pour chaque module. Java 8 est requis. Chaque JAR inclut automatiquement `core-api`; aucun JAR supplémentaire n'est nécessaire sur le serveur.
+Les JAR sont générés dans `*/target/` pour chaque module et le workflow CI GitHub publie tous les artefacts (y compris `core-api` et `starfun-api-plugin`) pour téléchargement rapide. Java 8 est requis. Chaque plugin final inclut automatiquement `core-api`; aucun JAR supplémentaire n'est nécessaire sur le serveur.
 
 ## Configuration complète
 - **core-api** : ne requiert pas de configuration; il sert de socle partagé.
