@@ -1,0 +1,19 @@
+name: FanCraftSkyWars
+main: com.fancraft.skywars.SkyWarsPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+commands:
+  skywars:
+    description: Gestion du mode SkyWars
+    usage: /skywars
+    permission: fancraft.skywars.use
+permissions:
+  fancraft.skywars.use:
+    description: Jouer à SkyWars
+    default: true
+  fancraft.skywars.admin:
+    description: Démarrer ou arrêter des parties
+    default: op
+softdepend:
+  - BKCommonLib

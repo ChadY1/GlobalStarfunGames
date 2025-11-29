@@ -1,0 +1,48 @@
+arenas:
+  sky:
+    lobby:
+      world: world
+      x: 0
+      y: 100
+      z: 0
+      yaw: 0
+      pitch: 0
+    spawns:
+      p1:
+        world: world
+        x: 10
+        y: 100
+        z: 10
+      p2:
+        world: world
+        x: -10
+        y: 100
+        z: -10
+      p3:
+        world: world
+        x: -10
+        y: 100
+        z: 10
+      p4:
+        world: world
+        x: 10
+        y: 100
+        z: -10
+    chests:
+      islands:
+        c1:
+          world: world
+          x: 10
+          y: 100
+          z: 12
+        c2:
+          world: world
+          x: -12
+          y: 100
+          z: -10
+      center:
+        c1:
+          world: world
+          x: 0
+          y: 100
+          z: 0

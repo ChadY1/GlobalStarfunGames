@@ -1,0 +1,19 @@
+name: FanCraftHikaBrain
+main: com.fancraft.hikabrain.HikaBrainPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+commands:
+  hikabrain:
+    description: Gestion du mode HikaBrain
+    usage: /hikabrain
+    permission: fancraft.hikabrain.use
+permissions:
+  fancraft.hikabrain.use:
+    description: Accès aux commandes du jeu
+    default: true
+  fancraft.hikabrain.admin:
+    description: Contrôle des parties HikaBrain
+    default: op
+softdepend:
+  - BKCommonLib
