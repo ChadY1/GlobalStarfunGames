@@ -1,0 +1,16 @@
+name: StarfunAPI
+main: com.fancraft.api.StarfunApiPlugin
+version: 1.0.0
+api-version: 1.9.4
+author: Starfun
+softdepend:
+  - BKCommonLib
+commands:
+  starfun:
+    description: Administration centrale Starfun
+    usage: /starfun help
+    aliases: [sf]
+permissions:
+  starfun.admin:
+    description: Accès aux commandes Starfun globales
+    default: op
