@@ -1,0 +1,15 @@
+name: FanCraftFreeCube
+main: com.fancraft.freecube.FreeCubePlugin
+version: 1.0.0
+api-version: 1.9.4
+author: FanCraft
+commands:
+  freecube:
+    description: Gestion du mode FreeCube
+    usage: /freecube
+permissions:
+  freecube.build:
+    description: Permet de construire dans le monde FreeCube lorsque la protection est activée
+    default: op
+softdepend:
+  - BKCommonLib
