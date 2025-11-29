@@ -24,3 +24,6 @@ arenas:
           z: 0
           yaw: 180
           pitch: 0
+bungeecord:
+  enabled: false
+  server: "starfun-hikabrain"

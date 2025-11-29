@@ -1,6 +1,7 @@
 package com.fancraft.skywars;
 
 import com.fancraft.core.config.ConfigHelper;
+import com.fancraft.core.proxy.ProxyBridge;
 import com.fancraft.core.scoreboard.ScoreboardService;
 import com.fancraft.core.version.VersionAdapter;
 import com.fancraft.core.version.VersionUtils;
@@ -15,6 +16,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SkyWarsPlugin extends JavaPlugin {
 
     private SkyWarsGameManager manager;
+    private ProxyBridge proxyBridge;
+    private boolean bungeeEnabled;
+    private String bungeeServer;
 
     @Override
     public void onEnable() {
@@ -23,6 +27,9 @@ public class SkyWarsPlugin extends JavaPlugin {
         this.manager = new SkyWarsGameManager(getLogger(), adapter);
         this.manager.setScoreboardService(scoreboardService);
         saveDefaultConfig();
+        this.proxyBridge = new ProxyBridge(this);
+        this.bungeeEnabled = ConfigHelper.getBooleanOrDefault(this, "bungeecord.enabled", false);
+        this.bungeeServer = ConfigHelper.getStringOrDefault(this, "bungeecord.server", "");
         try {
             loadArena();
         } catch (IllegalArgumentException ex) {
@@ -32,7 +39,7 @@ public class SkyWarsPlugin extends JavaPlugin {
         }
         SkyWarsListener listener = new SkyWarsListener(manager, adapter);
         Bukkit.getPluginManager().registerEvents(listener, this);
-        getCommand("skywars").setExecutor(new SkyWarsCommand(manager));
+        getCommand("skywars").setExecutor(new SkyWarsCommand(manager, proxyBridge, bungeeEnabled, bungeeServer));
         getLogger().info("SkyWars activé avec l'adaptateur " + adapter.getVersionTag());
     }
 

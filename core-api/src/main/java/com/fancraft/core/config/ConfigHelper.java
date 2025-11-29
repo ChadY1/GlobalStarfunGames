@@ -50,4 +50,13 @@ public final class ConfigHelper {
         config.set(path + ".yaw", location.getYaw());
         config.set(path + ".pitch", location.getPitch());
     }
+
+    public static String getStringOrDefault(JavaPlugin plugin, String path, String def) {
+        String value = plugin.getConfig().getString(path);
+        return value == null ? def : value;
+    }
+
+    public static boolean getBooleanOrDefault(JavaPlugin plugin, String path, boolean def) {
+        return plugin.getConfig().getBoolean(path, def);
+    }
 }

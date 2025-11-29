@@ -2,6 +2,7 @@ package com.fancraft.hikabrain;
 
 import com.fancraft.core.api.StarfunService;
 import com.fancraft.core.config.ConfigHelper;
+import com.fancraft.core.proxy.ProxyBridge;
 import com.fancraft.core.scoreboard.ScoreboardService;
 import com.fancraft.core.version.VersionAdapter;
 import com.fancraft.core.version.VersionUtils;
@@ -17,6 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class HikaBrainPlugin extends JavaPlugin implements StarfunService {
 
     private HikaGameManager gameManager;
+    private ProxyBridge proxyBridge;
+    private boolean bungeeEnabled;
+    private String bungeeServer;
 
     @Override
     public void onEnable() {
@@ -25,11 +29,14 @@ public class HikaBrainPlugin extends JavaPlugin implements StarfunService {
         this.gameManager = new HikaGameManager(getLogger(), adapter, 5);
         this.gameManager.setScoreboardService(scoreboardService);
         saveDefaultConfig();
+        this.proxyBridge = new ProxyBridge(this);
+        this.bungeeEnabled = ConfigHelper.getBooleanOrDefault(this, "bungeecord.enabled", false);
+        this.bungeeServer = ConfigHelper.getStringOrDefault(this, "bungeecord.server", "");
         loadArenas();
         HikaListener listener = new HikaListener(gameManager, adapter);
         Bukkit.getPluginManager().registerEvents(listener, this);
         getServer().getServicesManager().register(com.fancraft.core.api.StarfunService.class, this, this, org.bukkit.plugin.ServicePriority.Normal);
-        getCommand("hikabrain").setExecutor(new HikaCommand(this, gameManager));
+        getCommand("hikabrain").setExecutor(new HikaCommand(this, gameManager, proxyBridge, bungeeEnabled, bungeeServer));
         getLogger().info("HikaBrain prêt avec l'adaptateur " + adapter.getVersionTag());
     }
 
@@ -78,6 +85,8 @@ public class HikaBrainPlugin extends JavaPlugin implements StarfunService {
     @Override
     public void reloadConfig(CommandSender sender) {
         reloadConfig();
+        this.bungeeEnabled = ConfigHelper.getBooleanOrDefault(this, "bungeecord.enabled", false);
+        this.bungeeServer = ConfigHelper.getStringOrDefault(this, "bungeecord.server", "");
         loadArenas();
         sender.sendMessage(ChatColor.GREEN + "Configuration HikaBrain rechargée.");
     }

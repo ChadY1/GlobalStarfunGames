@@ -1,5 +1,6 @@
 package com.fancraft.hikabrain;
 
+import com.fancraft.core.proxy.ProxyBridge;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,10 +14,16 @@ public class HikaCommand implements CommandExecutor {
 
     private final HikaGameManager manager;
     private final HikaBrainPlugin plugin;
+    private final ProxyBridge proxyBridge;
+    private final boolean bungeeEnabled;
+    private final String bungeeServer;
 
-    public HikaCommand(HikaBrainPlugin plugin, HikaGameManager manager) {
+    public HikaCommand(HikaBrainPlugin plugin, HikaGameManager manager, ProxyBridge proxyBridge, boolean bungeeEnabled, String bungeeServer) {
         this.plugin = plugin;
         this.manager = manager;
+        this.proxyBridge = proxyBridge;
+        this.bungeeEnabled = bungeeEnabled;
+        this.bungeeServer = bungeeServer;
     }
 
     @Override
@@ -49,8 +56,13 @@ public class HikaCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("join")) {
-            manager.getArenas().stream().findFirst().ifPresent(arena -> manager.joinPlayer(arena, player));
-            sender.sendMessage(ChatColor.AQUA + "Rejoint HikaBrain.");
+            if (bungeeEnabled && bungeeServer != null && !bungeeServer.isEmpty()) {
+                proxyBridge.connect(player, bungeeServer);
+                sender.sendMessage(ChatColor.AQUA + "Connexion au serveur HikaBrain " + bungeeServer + "...");
+            } else {
+                manager.getArenas().stream().findFirst().ifPresent(arena -> manager.joinPlayer(arena, player));
+                sender.sendMessage(ChatColor.AQUA + "Rejoint HikaBrain.");
+            }
             return true;
         }
         if (args[0].equalsIgnoreCase("set")) {

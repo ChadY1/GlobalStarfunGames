@@ -5,3 +5,6 @@ hub:
   y: 75
   z: 0
 protect: true
+bungeecord:
+  enabled: false
+  server: "starfun-freecube"

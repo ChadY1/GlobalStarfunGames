@@ -46,3 +46,6 @@ arenas:
           x: 0
           y: 100
           z: 0
+bungeecord:
+  enabled: false
+  server: "starfun-skywars"

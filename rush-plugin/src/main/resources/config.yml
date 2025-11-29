@@ -34,3 +34,6 @@ arenas:
           x: 24
           y: 80
           z: 0
+bungeecord:
+  enabled: false
+  server: "starfun-rush"

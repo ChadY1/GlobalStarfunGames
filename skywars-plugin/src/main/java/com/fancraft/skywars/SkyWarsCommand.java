@@ -1,5 +1,6 @@
 package com.fancraft.skywars;
 
+import com.fancraft.core.proxy.ProxyBridge;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,9 +13,15 @@ import org.bukkit.entity.Player;
 public class SkyWarsCommand implements CommandExecutor {
 
     private final SkyWarsGameManager manager;
+    private final ProxyBridge proxyBridge;
+    private final boolean bungeeEnabled;
+    private final String bungeeServer;
 
-    public SkyWarsCommand(SkyWarsGameManager manager) {
+    public SkyWarsCommand(SkyWarsGameManager manager, ProxyBridge proxyBridge, boolean bungeeEnabled, String bungeeServer) {
         this.manager = manager;
+        this.proxyBridge = proxyBridge;
+        this.bungeeEnabled = bungeeEnabled;
+        this.bungeeServer = bungeeServer;
     }
 
     @Override
@@ -47,8 +54,13 @@ public class SkyWarsCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("join")) {
-            manager.getArenas().stream().findFirst().ifPresent(arena -> manager.joinPlayer(arena, player));
-            sender.sendMessage(ChatColor.AQUA + "Rejoint SkyWars.");
+            if (bungeeEnabled && bungeeServer != null && !bungeeServer.isEmpty()) {
+                proxyBridge.connect(player, bungeeServer);
+                sender.sendMessage(ChatColor.AQUA + "Connexion au serveur SkyWars " + bungeeServer + "...");
+            } else {
+                manager.getArenas().stream().findFirst().ifPresent(arena -> manager.joinPlayer(arena, player));
+                sender.sendMessage(ChatColor.AQUA + "Rejoint SkyWars.");
+            }
             return true;
         }
         return false;

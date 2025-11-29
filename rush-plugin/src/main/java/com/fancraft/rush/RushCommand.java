@@ -1,6 +1,7 @@
 package com.fancraft.rush;
 
 import com.fancraft.core.game.GameState;
+import com.fancraft.core.proxy.ProxyBridge;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,10 +15,16 @@ public class RushCommand implements CommandExecutor {
 
     private final RushGameManager gameManager;
     private final RushPlugin plugin;
+    private final ProxyBridge proxyBridge;
+    private final boolean bungeeEnabled;
+    private final String bungeeServer;
 
-    public RushCommand(RushPlugin plugin, RushGameManager gameManager) {
+    public RushCommand(RushPlugin plugin, RushGameManager gameManager, ProxyBridge proxyBridge, boolean bungeeEnabled, String bungeeServer) {
         this.plugin = plugin;
         this.gameManager = gameManager;
+        this.proxyBridge = proxyBridge;
+        this.bungeeEnabled = bungeeEnabled;
+        this.bungeeServer = bungeeServer;
     }
 
     @Override
@@ -50,8 +57,13 @@ public class RushCommand implements CommandExecutor {
             return true;
         }
         if (args[0].equalsIgnoreCase("join")) {
-            gameManager.getArenas().stream().findFirst().ifPresent(arena -> gameManager.joinPlayer(arena, player));
-            sender.sendMessage(ChatColor.AQUA + "Rejoint la partie Rush.");
+            if (bungeeEnabled && bungeeServer != null && !bungeeServer.isEmpty()) {
+                proxyBridge.connect(player, bungeeServer);
+                sender.sendMessage(ChatColor.AQUA + "Connexion au serveur Rush " + bungeeServer + "...");
+            } else {
+                gameManager.getArenas().stream().findFirst().ifPresent(arena -> gameManager.joinPlayer(arena, player));
+                sender.sendMessage(ChatColor.AQUA + "Rejoint la partie Rush.");
+            }
             return true;
         }
         if (args[0].equalsIgnoreCase("state")) {
