@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Temurin 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 8
+      - name: Cache Maven repository
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+      - name: Build with Maven
+        run: mvn -B -U -DskipTests package
+      - name: Upload plugin jars
+        uses: actions/upload-artifact@v4
+        with:
+          name: fancraft-plugins
+          path: |
+            core-api/target/*.jar
+            rush-plugin/target/*.jar
+            hikabrain-plugin/target/*.jar
+            skywars-plugin/target/*.jar
+            freecube-plugin/target/*.jar
+            starfun-api-plugin/target/*.jar
