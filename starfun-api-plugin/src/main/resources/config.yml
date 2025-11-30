@@ -1,0 +1,18 @@
+# Configuration Starfun API centrale
+messages:
+  prefix: "&6[Starfun]&r"
+npctesting:
+  default-arena: "default"
+  default-weapon: "sword" # sword ou bow
+help:
+  header: "&eAide Starfun API"
+bungeecord:
+  enabled: false
+  routes:
+    rush: "starfun-rush"
+    hikabrain: "starfun-hikabrain"
+    hikabrain-1v1: "starfun-hikabrain-1v1"
+    hikabrain-2v2: "starfun-hikabrain-2v2"
+    hikabrain-3v3: "starfun-hikabrain-3v3"
+    skywars: "starfun-skywars"
+    freecube: "starfun-freecube"

@@ -1,0 +1,39 @@
+arenas:
+  default:
+    lobby:
+      world: world
+      x: 0
+      y: 80
+      z: 0
+      yaw: 0
+      pitch: 0
+    teams:
+      red:
+        spawn:
+          world: world
+          x: -20
+          y: 80
+          z: 0
+          yaw: 0
+          pitch: 0
+        bed:
+          world: world
+          x: -24
+          y: 80
+          z: 0
+      blue:
+        spawn:
+          world: world
+          x: 20
+          y: 80
+          z: 0
+          yaw: 180
+          pitch: 0
+        bed:
+          world: world
+          x: 24
+          y: 80
+          z: 0
+bungeecord:
+  enabled: false
+  server: "starfun-rush"
